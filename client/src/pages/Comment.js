@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import './Comment.css';
 
-export const Comment = (props) => {
-  const { text, author } = props.comment;
-  return (
-    <div>
-      <div className="Comment">{text}</div>
-      <div className="Author">{author}</div>
-    </div>
-  )
+export default class Comment extends Component {
+  constructor(props) {
+    super(props);
+    console.log('Comment props.comment', props.comment)
+    // console.log('Comment authorUserName', props.authorUserName) 
+    this.state = {
+      authorUserName: ''
+    }   
+  }
+  componentDidMount() {
+    this.getAuthorUserName()
+  }
+  getAuthorUserName = () => {
+     console.log('getAuthorUserName props.comment', this.props.comment.author)
+      const id = this.props.comment.author
+      console.log('getAuthorUserName id', id);
+      axios.get(`http://localhost:3030/user/${id}`)
+        .then((data) => {
+          console.log('getUser data.data', data.data.username)
+          this.setState({authorUserName: data.data.username});
+        })
+        .catch((err) => {
+          console.log('getUser failed', err );
+        });
+      
+  }
+  render() {
+    const { text } = this.props.comment
+    return (
+      <div>
+        <span className="Author">{this.state.authorUserName}</span>      
+        <span className="Comment">{text}</span>
+      </div>
+    )
+  }
 };

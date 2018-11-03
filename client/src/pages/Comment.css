@@ -1,6 +1,8 @@
 .Author {
   font-size: 10px;
   font-weight: 300;
+  color: blue;  
+  margin-right: 3px;
 }
 .Comment {
   font-size: 12px;

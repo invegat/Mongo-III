@@ -13,6 +13,10 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-});
+},
+{
+  usePushEach: true
+}
+);
 
 module.exports = mongoose.model('Comment', CommentSchema);

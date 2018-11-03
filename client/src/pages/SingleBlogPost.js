@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
-import { Comment } from './Comment';
+import "./Login.css";
+import Comment from './Comment';
 
 export default class SingleBlogPost extends Component {
   constructor() {
     super();
     this.state = {
-      post: {
-        title: 'This is a FAKE blog post title', 
-        _id: '234lj23kjh', 
-        author: 'Patrick Saves the Day',
-        content: 'This is some FAKE content', 
-        comments: [
-          {text:'This is a FAKE comment', author: 'Stanley Yelnats'},
-        ]},
-      comment: '',
+      // post: {
+      //   title: 'This is a FAKE blog post title', 
+      //   _id: '234lj23kjh', 
+      //   author: 'Patrick Saves the Day',
+      //   content: 'This is some FAKE content', 
+      //   comments: [
+      //     {text:'This is a FAKE comment', author: 'Stanley Yelnats'},
+      //   ]},
+      // comment: '',
     };
     this.handleCommentText = this.handleCommentText.bind(this);
     this.addComment = this.addComment.bind(this);
@@ -30,6 +30,7 @@ export default class SingleBlogPost extends Component {
     console.log(id);
     axios.get(`http://localhost:3030/posts/${id}`)
       .then((data) => {
+        console.log('getBlockPost data.data', data.data)
         this.setState({post: data.data});
       })
       .catch((err) => {
@@ -60,8 +61,14 @@ export default class SingleBlogPost extends Component {
   handleCommentText(e) {
     this.setState({comment: e.target.value});
   }
-
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter' && e.shiftKey) {         
+      this.addComment(e)
+    }
+  }
   render() {
+    if (!this.state.post)
+      return (<div></div>)
     const { title, comments, content, author } = this.state.post;
     return (
       <div>
@@ -69,14 +76,18 @@ export default class SingleBlogPost extends Component {
         <h5>{author.username}</h5>
         <div>{content}</div>
         {comments.map((comment, ind) => {
-          return <Comment comment={comment} key={ind} />
+          return <Comment comment={comment} key={ind} authorUserName={author.username} />
         })}
-        <p>Add comments</p>
+        <p className='title'>
+          Add comments
+           <br/>Shift Enter to submit
+        </p>
         <form onSubmit={this.addComment}>
           <textarea 
             onChange={this.handleCommentText}
             value={this.state.comment}
             placeholder="add comment"
+            onKeyUp={this.handleKeyPress}
           />
           <br/>
           <button className="btn btn-default btn-sm" type="submit" onClick={this.addComment}>Submit Comment</button>

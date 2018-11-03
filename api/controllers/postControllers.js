@@ -53,7 +53,6 @@ const listPosts = (req, res) => {
 const findPost = (req, res) => {
   const { id: postID } = req.params;
   console.log(`findPost postID: ${postID}`);
-  console.log(`req.params.id: ${req.params.id}`);
   Post.findById(postID)
   .populate('comments')
   .exec()
@@ -92,7 +91,7 @@ const addComment = (req, res) => {
           })
           */
           .then(() => {
-            console.log('adcomment comment:', comment);
+            console.log('addcomment comment:', comment);
             res.json(comment);
           })
           .catch((err) => {

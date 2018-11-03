@@ -14,4 +14,5 @@ module.exports = (app) => {
     .route('/posts/:id')
     .get(postControllerMethods.findPost)
     .put(postControllerMethods.addComment);
+  app.route('/user/:id').get(userControllerMethods.getUser)
 };

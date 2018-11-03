@@ -11,6 +11,9 @@ const PostSchema = new mongoose.Schema({
   },
   content: String,
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+},
+{
+  usePushEach: true
 });
 
 module.exports = mongoose.model('Post', PostSchema);

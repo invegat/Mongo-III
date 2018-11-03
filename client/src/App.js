@@ -25,7 +25,9 @@ class App extends Component {
     localStorage.setItem('uuID', '');
     window.location = '/';
   }
-
+  doPost() {
+    window.location = '/posts'
+  }
   render() {
     const { loggedIn } = this.state;
     return (
@@ -35,6 +37,7 @@ class App extends Component {
           <img alt="mongo logo" className="App-logo" src={logo} />
           {loggedIn ? <div className="Inline-button">
             <button className="btn btn-primary btn-sm" onClick={this.doLogout}>Logout</button>
+            <button className="btn btn-primary btn-sm" onClick={this.doPost}>Posts</button>
           </div> : null}
         </div>
         <Route path="/" exact component={ Pages.Login }></Route>

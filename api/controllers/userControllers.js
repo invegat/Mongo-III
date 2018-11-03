@@ -35,8 +35,21 @@ const createUser = (req, res) => {
       res.status(STATUS_USER_ERROR).json({ error: err.message });
     });
 };
+const getUser = (req,res) => {
+  const { id: userID } = req.params
+  User
+    .findById(userID, (err, user) => {
+      if (err) throw err
+      res.json(user)
+    })
+    .catch((err) => {
+      res.status(STATUS_USER_ERROR).json({ error: err.message });
+    })    
+    
+}
 
 module.exports = {
   login,
-  createUser
+  createUser,
+  getUser
 };
