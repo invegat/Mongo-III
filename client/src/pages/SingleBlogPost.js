@@ -32,6 +32,14 @@ export default class SingleBlogPost extends Component {
       .then((data) => {
         console.log('getBlockPost data.data', data.data)
         this.setState({post: data.data});
+        axios.get(`http://localhost:3030/user/${data.data.author}`)
+        .then((adata) => {
+          console.log('getUser data.data', adata.data.username)
+          this.setState({authorUserName: adata.data.username});
+        })
+        .catch((err) => {
+          console.log('getUser failed', err );
+        });
       })
       .catch((err) => {
         console.log('You are seeing this error because you have yet to implement the `post` to get single post', err );
@@ -69,14 +77,15 @@ export default class SingleBlogPost extends Component {
   render() {
     if (!this.state.post)
       return (<div></div>)
-    const { title, comments, content, author } = this.state.post;
+    const { title, comments, content } = this.state.post;
     return (
       <div>
-        <h4>{title}</h4>
-        <h5>{author.username}</h5>
-        <div>{content}</div>
+        <span className='BigAuthor'>{this.state.authorUserName}</span>
+        <span className='Title'>{title}</span>
+        <br />
+        <textarea>{content}</textarea>
         {comments.map((comment, ind) => {
-          return <Comment comment={comment} key={ind} authorUserName={author.username} />
+          return <Comment comment={comment} key={ind}  />
         })}
         <p className='title'>
           Add comments

@@ -15,9 +15,9 @@ export default class Comment extends Component {
     this.getAuthorUserName()
   }
   getAuthorUserName = () => {
-     console.log('getAuthorUserName props.comment', this.props.comment.author)
+      // console.log('getAuthorUserName props.comment', this.props.comment.author)
       const id = this.props.comment.author
-      console.log('getAuthorUserName id', id);
+      // console.log('getAuthorUserName id', id);
       axios.get(`http://localhost:3030/user/${id}`)
         .then((data) => {
           console.log('getUser data.data', data.data.username)
@@ -31,9 +31,9 @@ export default class Comment extends Component {
   render() {
     const { text } = this.props.comment
     return (
-      <div>
+      <div className='comment_contianer'>
         <span className="Author">{this.state.authorUserName}</span>      
-        <span className="Comment">{text}</span>
+        <textarea className="Comment">{text}</textarea>
       </div>
     )
   }

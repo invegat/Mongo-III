@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const port = process.env.PORT || 3030;
 const server  = express();
+require('dotenv').config();
 
 const corsOptions = {
     "origin": "*",
@@ -12,8 +13,11 @@ const corsOptions = {
     "optionsSuccessStatus": 204
 };
 
+console.log('MONGODB_URI:', process.env.MONGODB_URI)
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/blog-posts', { useMongoClient: true });
+// mongoose.connect('mongodb://localhost/blog-posts', { useMongoClient: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blog-posts", { useMongoClient: true });
+ 
 
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());

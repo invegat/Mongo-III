@@ -16,3 +16,9 @@
   color: darkblue;
   font-size: 11px;
 }
+.BigAuthor {
+  color: blue;
+  display: inline-block;
+  margin-right: 3px;
+  font-size: 12px;
+}

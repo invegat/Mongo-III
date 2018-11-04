@@ -3,8 +3,13 @@
   font-weight: 300;
   color: blue;  
   margin-right: 3px;
+  margin-bottom: 250px;
+  
 }
 .Comment {
   font-size: 12px;
   font-weight: 400;
+}
+.comment_contianer {
+  vertical-align: middle;
 }
